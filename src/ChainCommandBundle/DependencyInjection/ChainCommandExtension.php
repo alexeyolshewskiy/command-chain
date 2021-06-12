@@ -1,6 +1,6 @@
 <?php
 
-namespace Gocobachi\ChainCommandBundle\DependencyInjection;
+namespace App\ChainCommandBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

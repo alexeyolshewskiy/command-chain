@@ -19,7 +19,7 @@ class BarHiCommand extends Command
         $this->setDescription(self::$defaultDescription);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Hi from Bar!');
     }

@@ -17,7 +17,7 @@ class FooHelloCommand extends Command
         $this->setDescription(self::$defaultDescription);
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output): void
+    protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('Hello from Foo!');
     }

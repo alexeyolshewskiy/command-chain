@@ -2,8 +2,14 @@
     "doctrine/inflector": {
         "version": "2.0.3"
     },
+    "monolog/monolog": {
+        "version": "1.26.1"
+    },
     "nikic/php-parser": {
         "version": "v4.10.5"
+    },
+    "php": {
+        "version": "7.4"
     },
     "psr/cache": {
         "version": "1.0.1"
@@ -116,6 +122,24 @@
     },
     "symfony/mime": {
         "version": "v4.4.25"
+    },
+    "symfony/monolog-bridge": {
+        "version": "v4.4.25"
+    },
+    "symfony/monolog-bundle": {
+        "version": "3.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.7",
+            "ref": "329f6a5ef2e7aa033f802be833ef8d1268dd0848"
+        },
+        "files": [
+            "config/packages/dev/monolog.yaml",
+            "config/packages/prod/deprecations.yaml",
+            "config/packages/prod/monolog.yaml",
+            "config/packages/test/monolog.yaml"
+        ]
     },
     "symfony/polyfill-intl-idn": {
         "version": "v1.23.0"
