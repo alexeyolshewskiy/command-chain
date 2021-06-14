@@ -9,4 +9,5 @@
 .idea/
 /vendor/
 /.php-cs-fixer.cache
+/php-cs-fixer-v3.phar
 ###< symfony/framework-bundle ###
