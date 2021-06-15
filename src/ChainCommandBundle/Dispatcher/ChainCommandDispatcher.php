@@ -3,25 +3,25 @@
 namespace App\ChainCommandBundle\Dispatcher;
 
 use App\ChainCommandBundle\Entity\ChainCommand;
-use App\ChainCommandBundle\Repository\ChainCommandRepository;
+use App\ChainCommandBundle\Service\ChainCommandService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
 
 class ChainCommandDispatcher
 {
-    private ChainCommandRepository $chainCommandRepository;
+    private ChainCommandService $ChainCommandService;
     private LoggerInterface $logger;
 
-    public function __construct(ChainCommandRepository $chainCommandRepository, LoggerInterface $logger)
+    public function __construct(ChainCommandService $ChainCommandService, LoggerInterface $logger)
     {
-        $this->chainCommandRepository = $chainCommandRepository;
+        $this->ChainCommandService = $ChainCommandService;
         $this->logger = $logger;
     }
 
     public function dispatch(ConsoleCommandEvent $consoleCommandEvent)
     {
         $name = $consoleCommandEvent->getCommand()->getName();
-        $chainCommand = $this->chainCommandRepository->getChainCommand($name);
+        $chainCommand = $this->ChainCommandService->getChainCommand($name);
         if ($chainCommand) {
             if ($chainCommand->isMaster()) {
                 $this->processMasterCommand($chainCommand, $consoleCommandEvent);

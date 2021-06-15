@@ -3,10 +3,7 @@
 namespace App\ChainCommandBundle\EventListener;
 
 use App\ChainCommandBundle\Dispatcher\ChainCommandDispatcher;
-use App\ChainCommandBundle\Repository\ChainCommandRepository;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Event\ConsoleCommandEvent;
-use Symfony\Component\Console\Event\ConsoleTerminateEvent;
 
 class ChainCommandEventListener
 {
@@ -21,13 +18,4 @@ class ChainCommandEventListener
     {
         $this->chainCommandDispatcher->dispatch($consoleCommandEvent);
     }
-
-    public function onConsoleTerminate(ConsoleTerminateEvent $consoleTerminateEvent)
-    {
-        $event = $consoleTerminateEvent;
-    }
-
-//    private function isCommandFromChains($command): bool{
-//        $this->ChainCommandRepository->isChainCommand($command);
-//    }
 }

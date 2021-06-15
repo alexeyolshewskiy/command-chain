@@ -1,14 +1,14 @@
 <?php
 
-namespace App\ChainCommandBundle\Storage;
+namespace App\ChainCommandBundle\DataProvider;
 
-class FileJsonStorage
+class JsonFileProvider implements DataProviderInterface
 {
     private string $storageFileName;
 
     public function __construct(string $storageFileName)
     {
-        $this->storageFileName = $storageFileName.'.json';
+        $this->storageFileName = $storageFileName;
     }
 
     public function getData(): array

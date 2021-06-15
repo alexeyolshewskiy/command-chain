@@ -2,7 +2,7 @@
 
 namespace App\ChainCommandBundle\Command;
 
-use App\ChainCommandBundle\Repository\ChainCommandRepository;
+use App\ChainCommandBundle\Service\ChainCommandService;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -13,12 +13,12 @@ class RegisterMemberCommand extends Command
 {
     protected static $defaultName = 'command-chain:register-member';
     protected static $defaultDescription = 'Register master chain command';
-    private ChainCommandRepository $ChainCommandRepository;
+    private ChainCommandService $ChainCommandService;
     private LoggerInterface $logger;
 
-    public function __construct(ChainCommandRepository $ChainCommandRepository, LoggerInterface $logger)
+    public function __construct(ChainCommandService $ChainCommandService, LoggerInterface $logger)
     {
-        $this->ChainCommandRepository = $ChainCommandRepository;
+        $this->ChainCommandService = $ChainCommandService;
         $this->logger = $logger;
         parent::__construct();
     }
@@ -35,7 +35,9 @@ class RegisterMemberCommand extends Command
     {
         $master = $input->getArgument('master');
         $member = $input->getArgument('member');
-        $this->ChainCommandRepository->addMemberCommand($master, $member);
-        $this->logger->info(sprintf('%s registered as a member of %s command chain', $member, $master));
+        $this->ChainCommandService->addMemberCommand($master, $member);
+        $message = sprintf('%s registered as a member of %s command chain', $member, $master);
+        $this->logger->info($message);
+        $output->writeln($message);
     }
 }

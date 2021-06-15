@@ -1,15 +1,20 @@
 services:
+
   kernel.listener.console:
     class:  App\ChainCommandBundle\EventListener\ChainCommandEventListener
     arguments:
       - '@chain.command.dispatcher'
     tags:
       - { name: kernel.event_listener, event: console.command, method: onConsoleCommand }
-      - { name: kernel.event_listener, event: console.terminate, method: onConsoleTerminate }
 
   chain.command.dispatcher:
     class: App\ChainCommandBundle\Dispatcher\ChainCommandDispatcher
-    arguments: ['@chain.command.repository','@logger']
+    arguments: ['@chain.command.service','@logger']
 
-  chain.command.repository:
-    class: App\ChainCommandBundle\Repository\ChainCommandRepository
+  chain.command_locator:
+    class: Symfony\Component\DependencyInjection\ServiceLocator
+    arguments: [ Symfony\Component\Console\CommandLoader\ContainerCommandLoader: '@console.command_loader' ]
+
+  chain.command.service:
+    class: App\ChainCommandBundle\Service\ChainCommandService
+    arguments: ['@chain.command_locator']

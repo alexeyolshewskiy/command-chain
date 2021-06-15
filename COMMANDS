@@ -1,0 +1,11 @@
+
+
+php bin/console command-chain:register-master foo:hello
+php bin/console command-chain:register-member foo:hello bar:hi
+
+
+php bin/console bar:hi
+php bin/console foo:hello
+
+
+The error output is not available when the tester is run without "capture_stderr_separately" option set.
