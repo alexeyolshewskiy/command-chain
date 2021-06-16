@@ -5,13 +5,19 @@ namespace App\ChainCommandBundle\Tests\Command;
 use App\ChainCommandBundle\Exception\ChainCommandException;
 use App\ChainCommandBundle\Service\ChainCommandService;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\CommandLoader\CommandLoaderInterface;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 class ChainCommandNegativeTest extends WebTestCase
 {
     use RemoveTrait;
 
     private static string $masterCommandName = 'first:hi';
+    private static string $masterCommandMessage = 'Hi from First!';
     private static string $memberCommandName = 'second:hi';
+    private static string $memberCommandMessage = 'Hello from Second!';
 
     public function setUp(): void
     {

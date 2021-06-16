@@ -12,11 +12,9 @@ use Symfony\Component\Console\CommandLoader\CommandLoaderInterface;
 class ChainCommandService
 {
     private DataProviderInterface $fileStorage;
-    private ContainerInterface $locator;
 
-    public function __construct(ContainerInterface $locator)
+    public function __construct()
     {
-        $this->locator = $locator;
         $this->fileStorage = new JsonFileProvider($_ENV['CHAIN_COMMAND_FILE']);
     }
 
@@ -25,7 +23,6 @@ class ChainCommandService
      */
     public function addMasterCommand(string $masterCommand): void
     {
-        $this->validateCommandExistsInApp($masterCommand);
         $chainCommands = $this->fileStorage->getData();
         $this->validateChainCommandNotExists($chainCommands, $masterCommand);
         $chainCommands[$masterCommand] = [];
@@ -37,9 +34,6 @@ class ChainCommandService
      */
     public function addMemberCommand(string $masterCommand, string $memberCommand)
     {
-        $this->validateCommandExistsInApp($masterCommand);
-        $this->validateCommandExistsInApp($memberCommand);
-
         $chainCommands = $this->fileStorage->getData();
         if (!isset($chainCommands[$masterCommand])) {
             throw new ChainCommandException('Master command not found');
@@ -80,13 +74,6 @@ class ChainCommandService
         return null;
     }
 
-    private function validateCommandExistsInApp($commandName)
-    {
-        if ($this->getCommandLoader()->has($commandName)) {
-            throw new ChainCommandException(sprintf('Command %s is not registered in application', $commandName));
-        }
-    }
-
     private function validateChainCommandNotExists(array $chainCommands, string $command): void
     {
         foreach ($chainCommands as $master => $members) {
@@ -99,9 +86,5 @@ class ChainCommandService
                 }
             }
         }
-    }
-
-    private function getCommandLoader(): CommandLoaderInterface{
-        return $this->locator->get('console.command_loader');
     }
 }

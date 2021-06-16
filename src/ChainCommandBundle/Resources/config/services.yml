@@ -11,10 +11,5 @@ services:
     class: App\ChainCommandBundle\Dispatcher\ChainCommandDispatcher
     arguments: ['@chain.command.service','@logger']
 
-  chain.command_locator:
-    class: Symfony\Component\DependencyInjection\ServiceLocator
-    arguments: [ Symfony\Component\Console\CommandLoader\ContainerCommandLoader: '@console.command_loader' ]
-
   chain.command.service:
     class: App\ChainCommandBundle\Service\ChainCommandService
-    arguments: ['@chain.command_locator']

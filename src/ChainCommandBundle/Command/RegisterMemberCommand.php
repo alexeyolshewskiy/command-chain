@@ -13,12 +13,12 @@ class RegisterMemberCommand extends Command
 {
     protected static $defaultName = 'command-chain:register-member';
     protected static $defaultDescription = 'Register master chain command';
-    private ChainCommandService $ChainCommandService;
+    private ChainCommandService $chainCommandService;
     private LoggerInterface $logger;
 
-    public function __construct(ChainCommandService $ChainCommandService, LoggerInterface $logger)
+    public function __construct(ChainCommandService $chainCommandService, LoggerInterface $logger)
     {
-        $this->ChainCommandService = $ChainCommandService;
+        $this->chainCommandService = $chainCommandService;
         $this->logger = $logger;
         parent::__construct();
     }
@@ -35,7 +35,7 @@ class RegisterMemberCommand extends Command
     {
         $master = $input->getArgument('master');
         $member = $input->getArgument('member');
-        $this->ChainCommandService->addMemberCommand($master, $member);
+        $this->chainCommandService->addMemberCommand($master, $member);
         $message = sprintf('%s registered as a member of %s command chain', $member, $master);
         $this->logger->info($message);
         $output->writeln($message);
